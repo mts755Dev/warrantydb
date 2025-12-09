@@ -41,33 +41,40 @@ export function LoginForm({ portalType, redirectPath }: LoginFormProps) {
           title: 'Admin Portal',
           subtitle: 'Access the administrative dashboard',
           color: 'from-primary-600 to-primary-800',
-          demoHint: 'Demo: admin@warrantydb.com.au / admin123',
+          demoCredentials: { email: 'admin@warrantydb.com.au', password: 'admin123' },
         };
       case 'installer':
         return {
           title: 'Installer Portal',
           subtitle: 'Register warranties and log inspections',
           color: 'from-accent-500 to-accent-700',
-          demoHint: 'Demo: installer@demo.com / demo123',
+          demoCredentials: { email: 'installer@demo.com', password: 'demo123' },
         };
       case 'customer':
         return {
           title: 'Customer Portal',
           subtitle: 'View and manage your warranty',
           color: 'from-green-500 to-green-700',
-          demoHint: null,
+          demoCredentials: null,
         };
       default:
         return {
           title: 'Login',
           subtitle: '',
           color: 'from-primary-600 to-primary-800',
-          demoHint: null,
+          demoCredentials: null,
         };
     }
   };
 
   const info = getPortalInfo();
+
+  const handleDemoClick = () => {
+    if (info.demoCredentials) {
+      setEmail(info.demoCredentials.email);
+      setPassword(info.demoCredentials.password);
+    }
+  };
 
   return (
     <div className="min-h-[calc(100vh-200px)] flex items-center justify-center py-12 px-4">
@@ -122,13 +129,19 @@ export function LoginForm({ portalType, redirectPath }: LoginFormProps) {
             </Button>
           </form>
 
-          {info.demoHint && (
-            <div className="mt-6 p-3 bg-surface-50 rounded-lg">
-              <p className="text-xs text-surface-500 text-center">{info.demoHint}</p>
-            </div>
+          {info.demoCredentials && (
+            <button
+              type="button"
+              onClick={handleDemoClick}
+              className="mt-6 w-full p-3 bg-surface-50 hover:bg-surface-100 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-surface-200"
+            >
+              <p className="text-xs text-surface-500 text-center">
+                🎯 <span className="font-medium text-surface-600">Click to try demo</span> — {info.demoCredentials.email}
+              </p>
+            </button>
           )}
 
-          {portalType !== 'customer' && (
+          {portalType === 'installer' && (
             <div className="mt-6 text-center">
               <p className="text-sm text-surface-500">
                 Don't have an account?{' '}

@@ -25,7 +25,6 @@ import { CustomerPortal, CustomerLogin } from './pages/customer';
 // Admin Pages
 import {
   AdminLogin,
-  AdminSignup,
   AdminDashboard,
   AdminWarranties,
   AdminWarrantyDetail,
@@ -124,7 +123,6 @@ function AppRoutes() {
           </AdminAuthRoute>
         } />
         <Route path="login" element={<AdminLogin />} />
-        <Route path="signup" element={<AdminSignup />} />
         <Route path="warranties" element={
           <AdminAuthRoute>
             <AdminWarranties />
